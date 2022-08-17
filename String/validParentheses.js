@@ -1,26 +1,29 @@
-// Split the parentheses string into an array
-// While the array has a pair of valid parentheses
-//    Iterate over the array removing valid pairs of parentheses
+// Create an array and push the first parentheses in
+// Iterate over remaining parentheses
+//    if the current parentheses is the closing pair of the last parentheses in the array
+//        remove last parentheses from array
+//    otherwise
+//        push current parentheses into the array
 // The string is valid if the array is empty at the end
 
-const isValid = (str) => {
-  let parenthesesArr = str.split("");
+const validParentheses = (str) => {
+  const parenthesesStack = [];
+  parenthesesStack.push(str[0]);
 
-  while (hasValidParentheses(parenthesesArr.join(""))) {
-    for (let i = 0; i < parenthesesArr.length - 1; i++) {
-      const parenthesesPair = parenthesesArr[i] + parenthesesArr[i + 1];
+  const parenthesesPairs = {
+    "(": ")",
+    "{": "}",
+    "[": "]",
+  };
 
-      if (isValidParenthesesPair(parenthesesPair)) {
-        parenthesesArr.splice(i, 2);
-        i--;
-      }
+  for (let i = 1; i < str.length; i++) {
+    const lastIn = parenthesesStack[parenthesesStack.length - 1];
+
+    if (str[i] === parenthesesPairs[lastIn]) {
+      parenthesesStack.pop();
+    } else {
+      parenthesesStack.push(str[i]);
     }
   }
-  return parenthesesArr.length === 0;
+  return parenthesesStack.length === 0;
 };
-
-const isValidParenthesesPair = (parens) =>
-  parens === "()" || parens === "{}" || parens === "[]";
-
-const hasValidParentheses = (parens) =>
-  parens.includes("()") || parens.includes("{}") || parens.includes("[]");
