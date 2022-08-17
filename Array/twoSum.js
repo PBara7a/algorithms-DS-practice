@@ -1,5 +1,5 @@
 // Create a map to store numbers and their indexes
-// Add 1st elements of nums array to the map
+// Add 1st element of nums array to the map
 // Iterate over the remaining nums
 //    Calculate difference between the target and current num
 //    Look for difference in the map
